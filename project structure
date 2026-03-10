@@ -1,0 +1,30 @@
+distributed-stock-data-pipeline
+│
+├── airflow
+│   └── dags
+│       └── stock_pipeline_dag.py
+│
+├── ingestion
+│   ├── async_stock_fetch.py
+│   ├── yahoo_scraper.py
+│   └── symbols.txt
+│
+├── spark_processing
+│   └── process_stock_data.py
+│
+├── data
+│   ├── raw
+│   │   ├── api
+│   │   └── scraped
+│   │
+│   └── processed
+│
+├── docker
+│   └── docker-compose.yml
+│
+├── k8s
+│   └── deployment.yaml
+│
+├── requirements.txt
+│
+└── README.md
