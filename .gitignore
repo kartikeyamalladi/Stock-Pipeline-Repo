@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+.env
+
+# Mac
+.DS_Store
+
+# Logs
+*.log
+
+# Data files
+data/raw/*
+data/processed/*
+
+# Keep directories tracked
+!data/raw/.keep
+!data/processed/.keep
