@@ -20,3 +20,6 @@ data/processed/*
 # Keep directories tracked
 !data/raw/.keep
 !data/processed/.keep
+
+# ignore apikey
+apikey.txt
