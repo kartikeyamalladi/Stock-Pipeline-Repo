@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: stock-pipeline
+spec:
+  schedule: "0 18 * * 1-5"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: ingestion
+              image: stock-pipeline:latest
+              command: ["python", "-m", "ingestion.async_fetcher", "--concurrency", "5"]
+              envFrom:
+                - secretRef:
+                    name: stock-pipeline-secrets
+              volumeMounts:
+                - name: data
+                  mountPath: /opt/airflow/data
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: stock-pipeline-data

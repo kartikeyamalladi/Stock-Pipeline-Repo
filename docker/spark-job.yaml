@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: spark-transform
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: spark-transform
+          image: stock-pipeline:latest
+          command: ["python", "/opt/airflow/processing/spark_transform.py"]
+          env:
+            - name: JAVA_HOME
+              value: /usr/lib/jvm/java-17-openjdk-arm64
+          envFrom:
+            - secretRef:
+                name: stock-pipeline-secrets
+          volumeMounts:
+            - name: data
+              mountPath: /opt/airflow/data
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: "1"
+            limits:
+              memory: "4Gi"
+              cpu: "2"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: stock-pipeline-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: stock-pipeline-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
