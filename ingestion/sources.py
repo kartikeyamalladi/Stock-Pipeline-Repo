@@ -32,6 +32,9 @@ class YahooRetryAfter(Exception):
 
 
 async def fetch_alpha_vantage(session, symbol):
+    if not ALPHA_VANTAGE_API_KEY:
+        return {"error": "missing ALPHA_VANTAGE_API_KEY"}
+
     url = (
         "https://www.alphavantage.co/query"
         f"?function=TIME_SERIES_DAILY"
