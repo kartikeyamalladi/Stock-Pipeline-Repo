@@ -9,6 +9,7 @@ spec:
       containers:
         - name: spark-transform
           image: stock-pipeline:latest
+          imagePullPolicy: Never
           command: ["python", "/opt/airflow/processing/spark_transform.py"]
           env:
             - name: JAVA_HOME

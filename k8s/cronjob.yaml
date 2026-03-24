@@ -13,6 +13,7 @@ spec:
           containers:
             - name: ingestion
               image: stock-pipeline:latest
+              imagePullPolicy: Never
               command: ["python", "-m", "ingestion.async_fetcher", "--concurrency", "5"]
               envFrom:
                 - secretRef:
